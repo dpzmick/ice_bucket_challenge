@@ -33,7 +33,8 @@ def get():
 
 @app.route("/hooks/insta", methods = ['POST'])
 def put():
-    print "There is new data: %d" % new_count
+    print "There is new data"
+    print new_count
     if new_count == 19:
         print "Getting new data"
         get_new_data_and_store_it()
