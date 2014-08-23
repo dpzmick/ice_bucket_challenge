@@ -25,7 +25,6 @@ new_count = 0
 def get_new_data_and_store_it():
     data, cursor = api.tag_recent_media(None, None, 'icebucketchallenge')
     handle_data(data, storage)
-    time.sleep(1)
 
 @app.route("/hooks/insta", methods = ['GET'])
 def get():
@@ -34,8 +33,9 @@ def get():
 
 @app.route("/hooks/insta", methods = ['POST'])
 def put():
-    print "Got new data"
+    print "There is new data"
     if new_count == 19:
+        print "Getting new data"
         get_new_data_and_store_it()
         new_count = 0
     else:
