@@ -10,9 +10,15 @@ if __name__ == "__main__":
     import cgi
     import time
     from data_store import DataStore
-    from private import client_id, client_secret, mongo_uri
+    from os import environ
 
-    storage = DataStore(mongo_uri, "instagram_data")
+    # get enviroment variables keys and stuff
+    mongo_uri = environ['INSTA_MONGO_URI']
+    mongo_db = environ['INSTA_MONGO_DB']
+    client_id = environ['INSTA_ID']
+    client_secret = environ['INSTA_SECRET']
+
+    storage = DataStore(mongo_uri, mongo_db)
 
     # connect to instagram API
     api = InstagramAPI(client_id=client_id, client_secret=client_secret)

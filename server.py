@@ -7,11 +7,17 @@ import cgi
 from flask.ext.cors import cross_origin
 from data_store import DataStore
 from insta import handle_data
-from private import client_id, client_secret, mongo_uri
+from os import environ
+
+# get enviroment variables keys and stuff
+mongo_uri = environ['INSTA_MONGO_URI']
+mongo_db = environ['INSTA_MONGO_DB']
+client_id = environ['INSTA_ID']
+client_secret = environ['INSTA_SECRET']
 
 app = Flask(__name__, static_url_path='')
 
-storage = DataStore(mongo_uri, "instagram_data")
+storage = DataStore(mongo_uri, mongo_db)
 api = InstagramAPI(client_id=client_id, client_secret=client_secret)
 
 def get_new_data_and_store_it():
