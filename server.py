@@ -23,7 +23,7 @@ api = InstagramAPI(client_id=client_id, client_secret=client_secret)
 def get_new_data_and_store_it():
     data, cursor = api.tag_recent_media(None, None, 'icebucketchallenge')
     handle_data(data, storage)
-    time.sleep(2)
+    time.sleep(1)
 
 @app.route("/hooks/insta", methods = ['GET'])
 def get():
@@ -60,7 +60,7 @@ def get_data_as_d3_json():
         for connection in node["connections"]:
             n2 = connection
             links.append( {"source": indexes[n1], "target":indexes[n2] })
-    
+
     return jsonify( {"nodes": nodes, "links": links} )
 
 if __name__ == "__main__":
