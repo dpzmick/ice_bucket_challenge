@@ -8,6 +8,7 @@ from flask.ext.cors import cross_origin
 from data_store import DataStore
 from insta import handle_data
 from os import environ
+import threading
 
 # get enviroment variables keys and stuff
 mongo_uri = environ['INSTA_MONGO_URI']
@@ -37,7 +38,9 @@ def put():
     print counter
     if counter == 20:
         print "Getting new data"
-        get_new_data_and_store_it()
+        # spawn a new thread because instagram wants quick response
+        t = threading.Thread(target=get_new_data_and_store_it())
+        t.start()
         counter = 0
     else:
         counter += 1
