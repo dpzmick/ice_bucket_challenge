@@ -2,8 +2,11 @@
 def handle_data(data, storage):
     for post in data:
         uname = '@' + str(post.user.username)
-        for reference in [word for word in post.caption.text.split(" ") if word.startswith("@")]:
-            storage.connect(uname, reference)
+        try:
+            for reference in [word for word in post.caption.text.split(" ") if word.startswith("@")]:
+                storage.connect(uname, reference)
+        except:
+            continue
 
 if __name__ == "__main__":
     from instagram.client import InstagramAPI
@@ -38,4 +41,4 @@ if __name__ == "__main__":
 
     # create a subscription for new data
     api.create_subscription(object='tag', object_id='icebucketchallenge', aspect='media',
-            callback_url='http://98.201.226.93:5000/hooks/insta')
+            callback_url='http://thawing-ravine-6251.herokuapp.com/hooks/insta')
