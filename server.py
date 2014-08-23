@@ -20,6 +20,8 @@ app = Flask(__name__, static_url_path='')
 storage = DataStore(mongo_uri, mongo_db)
 api = InstagramAPI(client_id=client_id, client_secret=client_secret)
 
+new_count = 0
+
 def get_new_data_and_store_it():
     data, cursor = api.tag_recent_media(None, None, 'icebucketchallenge')
     handle_data(data, storage)
@@ -32,11 +34,13 @@ def get():
 
 @app.route("/hooks/insta", methods = ['POST'])
 def put():
-    if not request.json:
-        abort(400)
-
     print "Got new data"
-    get_new_data_and_store_it()
+    if new_count == 19:
+        get_new_data_and_store_it()
+        new_count = 0
+    else:
+        new_count += 1
+
     return jsonify( { 'accept': True } ), 201
 
 @app.route("/json")
