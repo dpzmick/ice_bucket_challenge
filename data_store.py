@@ -19,7 +19,7 @@ class DataStore:
                 {
                     "$addToSet" : { "connections" : user2 }
                 },
-                upsert=True 
+                upsert=True
             )
 
     def get_as_dictionary_iterator(self):

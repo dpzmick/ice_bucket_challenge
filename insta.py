@@ -31,6 +31,7 @@ if __name__ == "__main__":
     max_id = -1
     while data != None:
         handle_data(data, storage)
+        print len(data)
         time.sleep(2)
         if max_id == cgi.parse_qsl(cursor)[1][1]:
             break
