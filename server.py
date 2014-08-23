@@ -1,4 +1,3 @@
-from pymongo import MongoClient
 import time
 from flask import Flask, jsonify
 from flask import request, abort
@@ -22,8 +21,11 @@ api = InstagramAPI(client_id=client_id, client_secret=client_secret)
 app = Flask(__name__, static_url_path='')
 
 def get_new_data_and_store_it():
-    data, cursor = api.tag_recent_media(None, None, 'icebucketchallenge')
-    handle_data(data, storage)
+    try:
+        data, cursor = api.tag_recent_media(None, None, 'icebucketchallenge')
+        handle_data(data, storage)
+    except:
+        return
 
 @app.route("/hooks/insta", methods = ['GET'])
 def get():
