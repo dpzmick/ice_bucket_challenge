@@ -42,7 +42,26 @@ def put():
 @app.route("/json")
 @cross_origin()
 def get_data_as_d3_json():
-    return "not yet implemented"
+
+    nodes = []
+    indexes = {}
+    links = []
+
+    for node in storage.get_as_dictionary_iterator():
+
+        for name in [node["name"]] + node["connections"]:
+            item = {"name": name}
+            if item not in nodes:
+                indexes[name] = len(nodes)
+                nodes.append(item)
+
+    for node in storage.get_as_dictionary_iterator():
+        n1 = node["name"]
+        for connection in node["connections"]:
+            n2 = connection
+            links.append( {"source": indexes[n1], "target":indexes[n2] })
+    
+    return jsonify( {"nodes": nodes, "links": links} )
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0')
