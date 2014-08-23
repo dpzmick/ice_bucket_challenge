@@ -16,7 +16,6 @@ mongo_db = environ['INSTA_MONGO_DB']
 client_id = environ['INSTA_ID']
 client_secret = environ['INSTA_SECRET']
 
-counter = 0
 storage = DataStore(mongo_uri, mongo_db)
 api = InstagramAPI(client_id=client_id, client_secret=client_secret)
 
@@ -33,18 +32,11 @@ def get():
 
 @app.route("/hooks/insta", methods = ['POST'])
 def put():
-    global counter, ts
-    counter += 1
-
     print "There is new data"
-    print counter
-    if counter == 20:
-        print "Getting new data"
-        # spawn a new thread because instagram wants quick response
-        t = Thread(target=get_new_data_and_store_it, args=())
-        t.daemon = True
-        t.start()
-        counter = 0
+    # spawn a new thread because instagram wants quick response
+    t = Thread(target=get_new_data_and_store_it, args=())
+    t.daemon = True
+    t.start()
 
     return jsonify( { 'accept': True } ), 201
 
