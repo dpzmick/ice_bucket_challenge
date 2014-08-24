@@ -24,8 +24,8 @@ def get_new_data_and_store_it():
     if storage.get_counter() == 20:
         storage.reset_counter()
         print "Getting data"
-        data, cursor = api.tag_recent_media(None, None, 'icebucketchallenge')
-        handle_data(data, storage)
+        #data, cursor = api.tag_recent_media(None, None, 'icebucketchallenge')
+        #handle_data(data, storage)
     else:
         storage.inc_counter()
 
