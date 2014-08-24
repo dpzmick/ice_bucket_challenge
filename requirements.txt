@@ -3,6 +3,8 @@ Flask-Cors==1.7.4
 Jinja2==2.7.3
 MarkupSafe==0.23
 Werkzeug==0.9.6
+gevent==1.0.1
+greenlet==0.4.3
 gunicorn==19.1.1
 httplib2==0.9
 itsdangerous==0.24
