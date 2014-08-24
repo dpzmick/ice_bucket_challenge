@@ -72,5 +72,5 @@ def get_data_as_d3_json():
 if __name__ == "__main__":
     t = Thread(target=get_new_data_and_store_it, args=())
     t.start()
-    app.run(host='0.0.0.0', port=80)
+    app.run(host='0.0.0.0', port=environ['PORT'])
     t.join()
